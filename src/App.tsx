@@ -2,14 +2,15 @@ import Header from "./components/Header";
 import MenuItem from "./components/MenuItem";
 import OrderContent from "./components/OrderContent";
 import OrderTotal from "./components/OrderTotal";
+import TipForm from "./components/TipForm";
 import { menuItems } from "./data/db";
 import useOrder from "./hooks/useOrder";
 
 function App() {
-  const { order, addItem, removeItem } = useOrder();
+  const { order, addItem, removeItem, tip, setTip, cleanOrder } = useOrder();
 
   return (
-    <>
+    <div>
       <Header title={"Calculadora"}></Header>
 
       <main className="max-w-7xl mx-auto p-20 grid md:grid-cols-2">
@@ -24,12 +25,28 @@ function App() {
         <div>
           <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10 shadow-md">
             <h1 className="font-black text-4xl ">Consumo</h1>
-            <OrderContent order={order} removeItem={removeItem}></OrderContent>
-            <OrderTotal order={order}></OrderTotal>
+            {order.length > 0 ? (
+              <div>
+                <OrderContent
+                  order={order}
+                  removeItem={removeItem}
+                ></OrderContent>
+                <TipForm setTip={setTip} tip={tip}></TipForm>
+                <OrderTotal
+                  order={order}
+                  tip={tip}
+                  cleanOrder={cleanOrder}
+                ></OrderTotal>
+              </div>
+            ) : (
+              <div>
+                <p className="text-center">Orden vacia</p>
+              </div>
+            )}
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 }
 

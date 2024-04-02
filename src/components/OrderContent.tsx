@@ -14,7 +14,7 @@ export default function OrderContent({
     <div>
       <div className="space-y-3 mt-5">
         {order.length === 0 ? (
-          <p className="text-center">Orden Vacia</p>
+          <p className="text-center">Orden vacia</p>
         ) : (
           order.map((item) => (
             <div
